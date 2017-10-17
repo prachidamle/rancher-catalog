@@ -1,6 +1,6 @@
 version: '2'
 
-{{- $k8sImage:="rancher/k8s:v1.8.1-rancher1" }}
+{{- $k8sImage:="rancher/k8s:v1.8.1-rancher2" }}
 {{- $etcdImage:="rancher/etcd:v3.0.17-4" }}
 {{- $kubectldImage:="rancher/kubectld:v0.8.5" }}
 {{- $etcHostUpdaterImage:="rancher/etc-host-updater:v0.0.3" }}
@@ -25,6 +25,9 @@ services:
     - --allow-privileged=true
     - --register-node=true
     - --cloud-provider=${CLOUD_PROVIDER}
+    {{- if eq .Values.CLOUD_PROVIDER "azure" }}
+    - --cloud-config=/etc/kubernetes/cloud-provider-config
+    {{- end }}
     - --healthz-bind-address=0.0.0.0
     - --cluster-dns=${DNS_CLUSTER_IP}
     - --cluster-domain=cluster.local
@@ -38,11 +41,17 @@ services:
     {{- range $i, $elem := splitPreserveQuotes .Values.ADDITIONAL_KUBELET_FLAGS }}
     - {{ $elem }}
     {{- end }}
-    {{- if ne .Values.HTTP_PROXY "" }}
     environment:
+        CLOUD_PROVIDER: ${CLOUD_PROVIDER}
+    {{- if ne .Values.HTTP_PROXY "" }}
         HTTP_PROXY: ${HTTP_PROXY}
         HTTPS_PROXY: ${HTTP_PROXY}
         NO_PROXY: ${NO_PROXY}
+    {{- end }}
+    {{- if eq .Values.CLOUD_PROVIDER "azure" }}
+        AZURE_TENANT_ID: ${AZURE_TENANT_ID}
+        AZURE_CLIENT_ID: ${AZURE_CLIENT_ID}
+        AZURE_CLIENT_SECRET: ${AZURE_CLIENT_SECRET}
     {{- end }}
     image: {{$k8sImage}}
     volumes:
@@ -77,6 +86,9 @@ services:
     - --allow-privileged=true
     - --register-node=true
     - --cloud-provider=${CLOUD_PROVIDER}
+    {{- if eq .Values.CLOUD_PROVIDER "azure" }}
+    - --cloud-config=/etc/kubernetes/cloud-provider-config
+    {{- end }}
     - --healthz-bind-address=0.0.0.0
     - --cluster-dns=${DNS_CLUSTER_IP}
     - --cluster-domain=cluster.local
@@ -91,12 +103,19 @@ services:
     {{- range $i, $elem := splitPreserveQuotes .Values.ADDITIONAL_KUBELET_FLAGS }}
     - {{ $elem }}
     {{- end }}
-    {{- if ne .Values.HTTP_PROXY "" }}
     environment:
+        CLOUD_PROVIDER: ${CLOUD_PROVIDER}
+    {{- if ne .Values.HTTP_PROXY "" }}
         HTTP_PROXY: ${HTTP_PROXY}
         HTTPS_PROXY: ${HTTP_PROXY}
         NO_PROXY: ${NO_PROXY}
     {{- end }}
+    {{- if eq .Values.CLOUD_PROVIDER "azure" }}
+        AZURE_TENANT_ID: ${AZURE_TENANT_ID}
+        AZURE_CLIENT_ID: ${AZURE_CLIENT_ID}
+        AZURE_CLIENT_SECRET: ${AZURE_CLIENT_SECRET}
+    {{- end }}
+
     image: {{$k8sImage}}
     volumes:
     - /run:/run:rprivate
@@ -153,6 +172,9 @@ services:
     - --insecure-bind-address=0.0.0.0
     - --insecure-port=0
     - --cloud-provider=${CLOUD_PROVIDER}
+    {{- if eq .Values.CLOUD_PROVIDER "azure" }}
+    - --cloud-config=/etc/kubernetes/cloud-provider-config
+    {{- end }}
     - --allow_privileged=true
     - --admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,PersistentVolumeLabel,DefaultStorageClass,ResourceQuota,DefaultTolerationSeconds
     - --client-ca-file=/etc/kubernetes/ssl/ca.pem
@@ -174,6 +196,11 @@ services:
       HTTP_PROXY: ${HTTP_PROXY}
       HTTPS_PROXY: ${HTTP_PROXY}
       NO_PROXY: ${NO_PROXY}
+      {{- end }}
+      {{- if eq .Values.CLOUD_PROVIDER "azure" }}
+      AZURE_TENANT_ID: ${AZURE_TENANT_ID}
+      AZURE_CLIENT_ID: ${AZURE_CLIENT_ID}
+      AZURE_CLIENT_SECRET: ${AZURE_CLIENT_SECRET}
       {{- end }}
     image: {{$k8sImage}}
     links:
@@ -244,15 +271,24 @@ services:
     - --kubeconfig=/etc/kubernetes/ssl/kubeconfig
     - --allow-untagged-cloud
     - --cloud-provider=${CLOUD_PROVIDER}
+    {{- if eq .Values.CLOUD_PROVIDER "azure" }}
+    - --cloud-config=/etc/kubernetes/cloud-provider-config
+    {{- end }}
     - --address=0.0.0.0
     - --root-ca-file=/etc/kubernetes/ssl/ca.pem
     - --service-account-private-key-file=/etc/kubernetes/ssl/key.pem
-    {{- if ne .Values.HTTP_PROXY "" }}
     environment:
+        CLOUD_PROVIDER: ${CLOUD_PROVIDER}
+        {{- if ne .Values.HTTP_PROXY "" }}
         HTTP_PROXY: ${HTTP_PROXY}
         HTTPS_PROXY: ${HTTP_PROXY}
         NO_PROXY: ${NO_PROXY}
-    {{- end }}
+        {{- end }}
+        {{- if eq .Values.CLOUD_PROVIDER "azure" }}
+        AZURE_TENANT_ID: ${AZURE_TENANT_ID}
+        AZURE_CLIENT_ID: ${AZURE_CLIENT_ID}
+        AZURE_CLIENT_SECRET: ${AZURE_CLIENT_SECRET}
+        {{- end }}
     image: {{$k8sImage}}
     labels:
       {{- if eq .Values.CONSTRAINT_TYPE "required" }}
