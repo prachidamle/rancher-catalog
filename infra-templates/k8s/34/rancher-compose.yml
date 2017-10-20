@@ -1,7 +1,7 @@
 version: '2'
 catalog:
   name: Kubernetes
-  version: v1.8.1-rancher1-etcdv3
+  version: v1.8.1-rancher2-etcdv2
   description: Rancher Kubernetes service
   minimum_rancher_version: v1.6.11-rc1
   upgrade_from: 0.0.0
@@ -22,8 +22,38 @@ catalog:
     default: rancher
     type: enum
     options:
-    - rancher
-    - aws
+     - rancher
+     - aws
+     - azure
+  - variable: AZURE_CLOUD
+    label: Azure Cloud Environment
+    description: The Azure Cloud environment identifier.
+    required: false
+    default: AzurePublicCloud
+    type: enum
+    options:
+      - AzurePublicCloud
+      - AzureUSGovernmentCloud
+      - AzureChinaCloud
+      - AzureGermanCloud
+  - variable: AZURE_TENANT_ID
+    label: Azure Tenant ID
+    description: The Azure Active Directory Tenant ID for the Azure Subscription where the cluster will be deployed.
+    required: false
+    default: ""
+    type: string
+  - variable: AZURE_CLIENT_ID
+    label: Azure Client ID
+    description: The Client ID for an Azure Active Directory application with access to talk to Azure APIs.
+    required: false
+    default: ""
+    type: string
+  - variable: AZURE_CLIENT_SECRET
+    label: Azure Client Secret
+    description: The Client Secret for an Azure Active Directory application with access to talk to Azure APIs.
+    required: false
+    default: ""
+    type: string
   - variable: RBAC
     description: Enable Kubernetes role-based access control with integrated Rancher authentication.
     label: Kubernetes RBAC
