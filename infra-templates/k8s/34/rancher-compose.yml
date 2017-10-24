@@ -1,7 +1,7 @@
 version: '2'
 catalog:
   name: Kubernetes
-  version: v1.8.1-rancher2-etcdv3
+  version: v1.8.1-rancher3-etcdv3
   description: Rancher Kubernetes service
   minimum_rancher_version: v1.6.11-rc1
   upgrade_from: 0.0.0
@@ -54,6 +54,12 @@ catalog:
     required: false
     default: ""
     type: string
+  - variable: AZURE_SEC_GROUP
+    label: Azure Security Group
+    description: The Azure Security Group for the hosts in the cluster. This is required for Azure Load Balancer to work. In case you provisioned your hosts using the Rancher Machine drvier for Azure, you will need to use the Azure Portal to edit the hosts' Security Group to the one selected here. Only hosts expected to be Load Balancer Backends need to be in this group.
+    required: false
+    type: string
+    default: ""
   - variable: RBAC
     description: Enable Kubernetes role-based access control with integrated Rancher authentication.
     label: Kubernetes RBAC
