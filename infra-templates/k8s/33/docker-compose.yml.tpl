@@ -1,5 +1,5 @@
 
-{{- $k8sImage:="rancher/k8s:v1.8.1-rancher3" }}
+{{- $k8sImage:="rancher/k8s:v1.8.2-rancher1" }}
 {{- $etcdImage:="rancher/etcd:v2.3.7-13" }}
 {{- $kubectldImage:="rancher/kubectld:v0.8.5" }}
 {{- $etcHostUpdaterImage:="rancher/etc-host-updater:v0.0.3" }}
@@ -414,6 +414,7 @@ addon-starter:
         DNS_CLUSTER_IP: ${DNS_CLUSTER_IP}
         BASE_IMAGE_NAMESPACE: ${BASE_IMAGE_NAMESPACE}
         HELM_IMAGE_NAMESPACE: ${HELM_IMAGE_NAMESPACE}
+        ADDONS_LOG_VERBOSITY_LEVEL: ${ADDONS_LOG_VERBOSITY_LEVEL}
 
     command:
         - addons-update.sh

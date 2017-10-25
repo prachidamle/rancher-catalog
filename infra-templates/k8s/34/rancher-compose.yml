@@ -1,7 +1,7 @@
 version: '2'
 catalog:
   name: Kubernetes
-  version: v1.8.1-rancher3-etcdv3
+  version: v1.8.2-rancher1-etcdv3
   description: Rancher Kubernetes service
   minimum_rancher_version: v1.6.11-rc1
   upgrade_from: 0.0.0
@@ -84,6 +84,12 @@ catalog:
     required: true
     default: true
     type: boolean
+  - variable: ADDONS_LOG_VERBOSITY_LEVEL
+    label: Log versions level for Kubernetes Add-ons
+    description: Log verbosity level for the Kubernetes Add-ons. Numbers 0-4 are debug-level logs, and 5-10 are trace-level logs.
+    default: 2
+    type: int
+    required: false
   - variable: POD_INFRA_CONTAINER_IMAGE
     label: Pod Infra Container Image
     description: The image whose network/ipc namespaces containers in each pod will use. It uses kubelet default if left empty. Do not add the private registry to this field, update the `Private Registry for Add-Ons and Pod Infra Container Image` field with the registry information.

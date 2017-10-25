@@ -1,13 +1,14 @@
-## Kubernetes v1.8.1
+## Kubernetes v1.8.2
 
 ### Software Versions
 
-* Kubernetes v1.8.1
+* Kubernetes v1.8.2
 * Etcd v3.0.17
 
-### Changelog for Kubernetes v1.8.1
+### Changelog for Kubernetes v1.8.2
 
 * Added Azure cloud provider support.
+* Added configurable log verbosity levels for add-ons.
 
 ### Required Open Ports on hosts
 
