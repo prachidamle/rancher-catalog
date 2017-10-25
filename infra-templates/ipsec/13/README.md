@@ -10,7 +10,7 @@ Traffic to and from hosts require UDP ports `500` and `4500` to be open.
 
 #### Router and CNI Driver [rancher/net:v0.13.2]
 * Refactored to have a clean separation with rest of the plugins.
-* Including stopping containers for haproxy drain feature.
+* Updated to include `stopping` containers when establishing ipsec tunnels
 * Added retry logic for deleted IPSec SAs.
 
 ### Configuration options
