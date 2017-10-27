@@ -19,13 +19,13 @@
       label: CPU scheduler period
       description: Sets the period of CPUs to limit the metadata container’s CPU usage
       required: true
-      default: 100000
+      default: 400000
       type: int
     - variable: CPU_QUOTA
       label: CPU quota on the metadata container
       description: Sets the CPU quota on the metadata container
       required: true
-      default: 70000
+      default: 200000
       type: int
     - variable: RELOAD_INTERVAL_LIMIT
       label: Metadata reload interval limit
