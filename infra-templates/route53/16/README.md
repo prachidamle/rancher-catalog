@@ -4,9 +4,10 @@ Rancher External DNS service powered by Amazon Route53
 
 #### Changelog
 
-##### v0.7.0
+##### v0.7.7
 
-* Fix an issue for Cattle FQDN updates with custom name templates
+* AWS-SDK updated to v1.12.19
+* Added support for configuring number of max. retries of rate-limited Route53 API requests
 
 #### Usage
 

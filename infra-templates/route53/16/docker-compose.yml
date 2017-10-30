@@ -1,6 +1,6 @@
 # notemplating
 route53:
-  image: rancher/external-dns:v0.7.0
+  image: rancher/external-dns:v0.7.7
   command: -provider=route53
   expose:
     - 1000
@@ -11,6 +11,7 @@ route53:
     ROUTE53_ZONE_ID: ${ROUTE53_ZONE_ID}
     NAME_TEMPLATE: ${NAME_TEMPLATE}
     TTL: ${TTL}
+    ROUTE53_MAX_RETRIES: ${ROUTE53_MAX_RETRIES}
   labels:
     io.rancher.container.create_agent: "true"
     io.rancher.container.agent.role: "external-dns"
