@@ -28,6 +28,7 @@ kubelet:
         {{- end }}
         - --healthz-bind-address=0.0.0.0
         - --cluster-dns=${DNS_CLUSTER_IP}
+        - --fail-swap-on=${FAIL_ON_SWAP}
         - --cluster-domain=cluster.local
         - --network-plugin=cni
         - --cni-conf-dir=/etc/cni/managed.d
@@ -89,6 +90,7 @@ kubelet-unschedulable:
         - --cloud-config=/etc/kubernetes/cloud-provider-config
         {{- end }}
         - --healthz-bind-address=0.0.0.0
+        - --fail-swap-on=${FAIL_ON_SWAP}
         - --cluster-dns=${DNS_CLUSTER_IP}
         - --cluster-domain=cluster.local
         - --network-plugin=cni

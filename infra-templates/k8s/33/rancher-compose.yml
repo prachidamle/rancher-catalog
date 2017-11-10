@@ -54,7 +54,7 @@
     type: string
   - variable: AZURE_SEC_GROUP
     label: Azure Security Group
-    description: The Azure Security Group for the hosts in the cluster. This is required for Azure Load Balancer to work. In case you provisioned your hosts using the Rancher Machine drvier for Azure, you will need to use the Azure Portal to edit the hosts' Security Group to the one selected here. Only hosts expected to be Load Balancer Backends need to be in this group. 
+    description: The Azure Security Group for the hosts in the cluster. This is required for Azure Load Balancer to work. In case you provisioned your hosts using the Rancher Machine drvier for Azure, you will need to use the Azure Portal to edit the hosts' Security Group to the one selected here. Only hosts expected to be Load Balancer Backends need to be in this group.
     required: false
     type: string
     default: ""
@@ -94,6 +94,15 @@
     required: true
     default: true
     type: boolean
+  - variable: FAIL_ON_SWAP
+    label: Fail on swap
+    description: Kubelet will fail if swap is enabled on the host.
+    default: false
+    type: enum
+    options:
+      - true
+      - false
+    required: true
   - variable: ENABLE_ADDONS
     label: Enable Kubernetes Add-ons
     description: Setting this to `false` will disable Dashboard, Helm, SkyDNS, and other Kubernetes add-on services. This is meant for advanced users who want to deploy custom versions of these add-ons.
