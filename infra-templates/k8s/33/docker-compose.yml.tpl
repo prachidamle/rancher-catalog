@@ -1,5 +1,5 @@
 
-{{- $k8sImage:="rancher/k8s:v1.8.2-rancher4" }}
+{{- $k8sImage:="rancher/k8s:v1.8.2-rancher5" }}
 {{- $etcdImage:="rancher/etcd:v2.3.7-13" }}
 {{- $kubectldImage:="rancher/kubectld:v0.8.5" }}
 {{- $etcHostUpdaterImage:="rancher/etc-host-updater:v0.0.3" }}
@@ -52,6 +52,7 @@ kubelet:
         AZURE_CLIENT_ID: ${AZURE_CLIENT_ID}
         AZURE_CLIENT_SECRET: ${AZURE_CLIENT_SECRET}
         AZURE_SEC_GROUP: ${AZURE_SEC_GROUP}
+        AZURE_CLOUD: ${AZURE_CLOUD}
     {{- end }}
     image: {{$k8sImage}}
     volumes:
@@ -116,6 +117,7 @@ kubelet-unschedulable:
         AZURE_CLIENT_ID: ${AZURE_CLIENT_ID}
         AZURE_CLIENT_SECRET: ${AZURE_CLIENT_SECRET}
         AZURE_SEC_GROUP: ${AZURE_SEC_GROUP}
+        AZURE_CLOUD: ${AZURE_CLOUD}
     {{- end }}
 
     image: {{$k8sImage}}
@@ -232,6 +234,7 @@ kubernetes:
         AZURE_CLIENT_ID: ${AZURE_CLIENT_ID}
         AZURE_CLIENT_SECRET: ${AZURE_CLIENT_SECRET}
         AZURE_SEC_GROUP: ${AZURE_SEC_GROUP}
+        AZURE_CLOUD: ${AZURE_CLOUD}
         {{- end }}
 
     image: {{$k8sImage}}
@@ -322,6 +325,7 @@ controller-manager:
         AZURE_CLIENT_ID: ${AZURE_CLIENT_ID}
         AZURE_CLIENT_SECRET: ${AZURE_CLIENT_SECRET}
         AZURE_SEC_GROUP: ${AZURE_SEC_GROUP}
+        AZURE_CLOUD: ${AZURE_CLOUD}
         {{- end }}
     image: {{$k8sImage}}
     labels:
